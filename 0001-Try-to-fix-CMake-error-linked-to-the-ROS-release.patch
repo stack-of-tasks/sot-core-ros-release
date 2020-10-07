@@ -1,0 +1,26 @@
+From 9989a0c307f675dd42662946639348738a19629e Mon Sep 17 00:00:00 2001
+From: rascof <thomas.peyrucain@gmail.com>
+Date: Wed, 7 Oct 2020 15:14:29 +0200
+Subject: [PATCH] Try to fix CMake error linked to the ROS release
+
+---
+ src/CMakeLists.txt | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 2ba2088..6d6a365 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -99,6 +99,9 @@ FOREACH(plugin ${plugins})
+   TARGET_LINK_LIBRARIES(${LIBRARY_NAME} ${PROJECT_NAME} ${${LIBRARY_NAME}_deps})
+ 
+   IF(NOT INSTALL_PYTHON_INTERFACE_ONLY)
++    IF(EXISTS "/tmp/ws/build_isolated/catkin_make_isolated.cache") # Relocate the Dynamic-graph plugin to fix a CMake error only in ROS release configuration
++      SET(DYNAMIC_GRAPH_PLUGINDIR "lib/dynamic-graph-plugin")
++    ENDIF(EXISTS "/tmp/ws/build_isolated/catkin_make_isolated.cache") # It should not affect the build from source
+     INSTALL(TARGETS ${LIBRARY_NAME} EXPORT ${TARGETS_EXPORT_NAME}
+       DESTINATION ${DYNAMIC_GRAPH_PLUGINDIR})
+   ENDIF(NOT INSTALL_PYTHON_INTERFACE_ONLY)
+-- 
+2.17.1
+

@@ -1,4 +1,4 @@
-From 2979a38d089417133cab803d53a0ad2e1069c52f Mon Sep 17 00:00:00 2001
+From 8a9703faf2e729cf4031313ae082b03014156c63 Mon Sep 17 00:00:00 2001
 From: rascof <thomas.peyrucain@gmail.com>
 Date: Wed, 7 Oct 2020 15:14:29 +0200
 Subject: [PATCH] Try to fix CMake error linked to the ROS release

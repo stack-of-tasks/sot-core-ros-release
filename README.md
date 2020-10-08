@@ -1,3 +1,26 @@
+## sot-core (melodic) - 4.10.1-3
+
+The packages in the `sot-core` repository were released into the `melodic` distro by running `/usr/bin/bloom-release sot-core --rosdistro melodic` on `Thu, 08 Oct 2020 08:15:32 -0000`
+
+The `sot-core` package was released.
+
+Version of package(s) in repository `sot-core`:
+
+- upstream repository: https://github.com/stack-of-tasks/sot-core.git
+- release repository: https://github.com/stack-of-tasks/sot-core-ros-release.git
+- rosdistro version: `4.10.1-1`
+- old version: `4.10.1-2`
+- new version: `4.10.1-3`
+
+Versions of tools used:
+
+- bloom version: `0.10.0`
+- catkin_pkg version: `0.4.23`
+- rosdep version: `0.19.0`
+- rosdistro version: `0.8.3`
+- vcstools version: `0.1.42`
+
+
 ## sot-core (noetic) - 4.10.1-1
 
 The packages in the `sot-core` repository were released into the `noetic` distro by running `/usr/bin/bloom-release --rosdistro noetic --track noetic sot-core` on `Thu, 01 Oct 2020 10:06:26 -0000`

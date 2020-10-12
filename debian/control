@@ -1,0 +1,12 @@
+Source: ros-melodic-sot-core
+Section: misc
+Priority: optional
+Maintainer: Olivier Stasse <ostasse@laas.fr>
+Build-Depends: debhelper (>= 9.0.0), cmake, doxygen, libboost-all-dev, ros-melodic-dynamic-graph, ros-melodic-dynamic-graph-python, ros-melodic-pinocchio
+Homepage: http://stack-of-tasks.github.io
+Standards-Version: 3.9.2
+
+Package: ros-melodic-sot-core
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libboost-all-dev, ros-melodic-catkin, ros-melodic-dynamic-graph, ros-melodic-dynamic-graph-python, ros-melodic-pinocchio
+Description: Hierarchical task solver plug-in for dynamic-graph

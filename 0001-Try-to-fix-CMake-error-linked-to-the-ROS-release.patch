@@ -1,7 +1,7 @@
-From c5e24f28900e22e35e6c2ead3190a302cc80ea8f Mon Sep 17 00:00:00 2001
+From a164de4389aa16e8d6316b16f138281f11a58232 Mon Sep 17 00:00:00 2001
 From: rascof <thomas.peyrucain@gmail.com>
 Date: Wed, 7 Oct 2020 15:14:29 +0200
-Subject: [PATCH] Try to fix CMake error linked to the ROS release
+Subject: [PATCH 1/2] Try to fix CMake error linked to the ROS release
 
 ---
  src/CMakeLists.txt | 3 +++

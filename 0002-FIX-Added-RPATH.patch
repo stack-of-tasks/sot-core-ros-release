@@ -1,0 +1,32 @@
+From b54246cbd86d132f6a0756c20cdcea415a96f90f Mon Sep 17 00:00:00 2001
+From: rascof <thomas.peyrucain@gmail.com>
+Date: Mon, 12 Oct 2020 11:39:31 +0200
+Subject: [PATCH 2/2] FIX Added RPATH
+
+---
+ src/CMakeLists.txt | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 6d6a365..d6fc8db 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -87,6 +87,7 @@ set(sequencer_deps sot)
+ set(task-conti_deps task)
+ set(task-pd_deps task)
+ set(task-unilateral_deps task)
++set(BUILD_WITH_INSTALL_RPATH TRUE)
+ 
+ FOREACH(plugin ${plugins})
+   GET_FILENAME_COMPONENT(LIBRARY_NAME ${plugin} NAME)
+@@ -94,6 +95,7 @@ FOREACH(plugin ${plugins})
+ 
+   IF(SUFFIX_SO_VERSION)
+     SET_TARGET_PROPERTIES(${LIBRARY_NAME} PROPERTIES SOVERSION ${PROJECT_VERSION})
++    set_target_properties(${LIBRARY_NAME} PROPERTIES INSTALL_RPATH $ORIGIN)
+   ENDIF(SUFFIX_SO_VERSION)
+ 
+   TARGET_LINK_LIBRARIES(${LIBRARY_NAME} ${PROJECT_NAME} ${${LIBRARY_NAME}_deps})
+-- 
+2.17.1
+

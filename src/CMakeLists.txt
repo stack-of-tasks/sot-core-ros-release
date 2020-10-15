@@ -87,7 +87,6 @@ set(sequencer_deps sot)
 set(task-conti_deps task)
 set(task-pd_deps task)
 set(task-unilateral_deps task)
-set(BUILD_WITH_INSTALL_RPATH TRUE)
 
 FOREACH(plugin ${plugins})
   GET_FILENAME_COMPONENT(LIBRARY_NAME ${plugin} NAME)
@@ -95,15 +94,11 @@ FOREACH(plugin ${plugins})
 
   IF(SUFFIX_SO_VERSION)
     SET_TARGET_PROPERTIES(${LIBRARY_NAME} PROPERTIES SOVERSION ${PROJECT_VERSION})
-    set_target_properties(${LIBRARY_NAME} PROPERTIES INSTALL_RPATH $ORIGIN)
   ENDIF(SUFFIX_SO_VERSION)
 
   TARGET_LINK_LIBRARIES(${LIBRARY_NAME} ${PROJECT_NAME} ${${LIBRARY_NAME}_deps})
 
   IF(NOT INSTALL_PYTHON_INTERFACE_ONLY)
-    IF(EXISTS "/tmp/ws/build_isolated/catkin_make_isolated.cache") # Relocate the Dynamic-graph plugin to fix a CMake error only in ROS release configuration
-      SET(DYNAMIC_GRAPH_PLUGINDIR "lib/dynamic-graph-plugin")
-    ENDIF(EXISTS "/tmp/ws/build_isolated/catkin_make_isolated.cache") # It should not affect the build from source
     INSTALL(TARGETS ${LIBRARY_NAME} EXPORT ${TARGETS_EXPORT_NAME}
       DESTINATION ${DYNAMIC_GRAPH_PLUGINDIR})
   ENDIF(NOT INSTALL_PYTHON_INTERFACE_ONLY)

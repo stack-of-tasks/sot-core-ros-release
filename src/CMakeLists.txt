@@ -43,7 +43,6 @@ SET(plugins
   tools/event
   tools/time-stamp
   tools/timer
-  tools/seq-play
   tools/sequencer
   tools/robot-simu
   tools/motion-period
@@ -87,7 +86,6 @@ set(sequencer_deps sot)
 set(task-conti_deps task)
 set(task-pd_deps task)
 set(task-unilateral_deps task)
-set(BUILD_WITH_INSTALL_RPATH TRUE)
 
 FOREACH(plugin ${plugins})
   GET_FILENAME_COMPONENT(LIBRARY_NAME ${plugin} NAME)
@@ -95,28 +93,34 @@ FOREACH(plugin ${plugins})
 
   IF(SUFFIX_SO_VERSION)
     SET_TARGET_PROPERTIES(${LIBRARY_NAME} PROPERTIES SOVERSION ${PROJECT_VERSION})
-    set_target_properties(${LIBRARY_NAME} PROPERTIES INSTALL_RPATH $ORIGIN)
   ENDIF(SUFFIX_SO_VERSION)
 
-  TARGET_LINK_LIBRARIES(${LIBRARY_NAME} ${PROJECT_NAME} ${${LIBRARY_NAME}_deps})
+  TARGET_LINK_LIBRARIES(${LIBRARY_NAME} PUBLIC ${PROJECT_NAME} ${${LIBRARY_NAME}_deps})
 
   IF(NOT INSTALL_PYTHON_INTERFACE_ONLY)
-    IF(EXISTS "/tmp/ws/build_isolated/catkin_make_isolated.cache") # Relocate the Dynamic-graph plugin to fix a CMake error only in ROS release configuration
-      SET(DYNAMIC_GRAPH_PLUGINDIR "lib/dynamic-graph-plugin")
-    ENDIF(EXISTS "/tmp/ws/build_isolated/catkin_make_isolated.cache") # It should not affect the build from source
     INSTALL(TARGETS ${LIBRARY_NAME} EXPORT ${TARGETS_EXPORT_NAME}
       DESTINATION ${DYNAMIC_GRAPH_PLUGINDIR})
   ENDIF(NOT INSTALL_PYTHON_INTERFACE_ONLY)
 
   IF(BUILD_PYTHON_INTERFACE)
     STRING(REPLACE - _ PYTHON_LIBRARY_NAME ${LIBRARY_NAME})
-    DYNAMIC_GRAPH_PYTHON_MODULE("${PYTHON_DIR}/${PYTHON_LIBRARY_NAME}"
-      ${LIBRARY_NAME} ${PROJECT_NAME}-${PYTHON_LIBRARY_NAME}-wrap)
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${plugin}-python-module-py.cc")
+      DYNAMIC_GRAPH_PYTHON_MODULE("${PYTHON_DIR}/${PYTHON_LIBRARY_NAME}"
+        ${LIBRARY_NAME} ${PROJECT_NAME}-${PYTHON_LIBRARY_NAME}-wrap
+        SOURCE_PYTHON_MODULE "${CMAKE_CURRENT_SOURCE_DIR}/${plugin}-python-module-py.cc")
+    else()
+      DYNAMIC_GRAPH_PYTHON_MODULE("${PYTHON_DIR}/${PYTHON_LIBRARY_NAME}"
+        ${LIBRARY_NAME} ${PROJECT_NAME}-${PYTHON_LIBRARY_NAME}-wrap
+        MODULE_HEADER "${CMAKE_CURRENT_SOURCE_DIR}/${plugin}-python.h")
+    endif()
+    target_link_libraries(${PROJECT_NAME}-${PYTHON_LIBRARY_NAME}-wrap eigenpy::eigenpy)
   ENDIF(BUILD_PYTHON_INTERFACE)
 ENDFOREACH(plugin)
 
 IF(BUILD_PYTHON_INTERFACE)
-  DYNAMIC_GRAPH_PYTHON_MODULE(${PYTHON_DIR} ${PROJECT_NAME} wrap)
+  DYNAMIC_GRAPH_PYTHON_MODULE("${PYTHON_DIR}"
+    ${PROJECT_NAME} ${PROJECT_NAME}-wrap
+    SOURCE_PYTHON_MODULE "${CMAKE_CURRENT_SOURCE_DIR}/python-module.cc")
 
   INSTALL(FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/dynamic_graph/sot/__init__.py
@@ -157,12 +161,10 @@ IF(BUILD_PYTHON_INTERFACE)
   # Robot_utils_sot_py PYTHON module *
   # **********************************
   ADD_LIBRARY(robot_utils_sot_py SHARED tools/robot-utils-py.cpp)
-  TARGET_INCLUDE_DIRECTORIES(robot_utils_sot_py SYSTEM PUBLIC ${PYTHON_INCLUDE_DIRS})
-  TARGET_LINK_LIBRARIES(robot_utils_sot_py
-    ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} ${PROJECT_NAME}
-    dynamic-graph::dynamic-graph pinocchio::pinocchio)
-  TARGET_INCLUDE_DIRECTORIES(robot_utils_sot_py PUBLIC pinocchio::pinocchio)
-  TARGET_LINK_BOOST_PYTHON(robot_utils_sot_py)
+  TARGET_INCLUDE_DIRECTORIES(robot_utils_sot_py SYSTEM PUBLIC ${PYTHON_INCLUDE_DIR})
+  TARGET_LINK_LIBRARIES(robot_utils_sot_py PUBLIC
+    ${PYTHON_LIBRARIES} ${PROJECT_NAME})
+  TARGET_LINK_BOOST_PYTHON(robot_utils_sot_py PRIVATE)
   SET_TARGET_PROPERTIES(robot_utils_sot_py PROPERTIES PREFIX "")
   INSTALL(TARGETS robot_utils_sot_py DESTINATION "${PYTHON_SITELIB}/dynamic_graph/${PYTHON_DIR}")
 ENDIF(BUILD_PYTHON_INTERFACE)

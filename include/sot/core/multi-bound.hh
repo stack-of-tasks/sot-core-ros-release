@@ -20,6 +20,7 @@
 
 /* SOT */
 #include "sot/core/api.hh"
+#include <dynamic-graph/signal-caster.h>
 #include <sot/core/exception-task.hh>
 
 /* --------------------------------------------------------------------- */
@@ -71,6 +72,9 @@ SOT_CORE_EXPORT std::ostream &operator<<(std::ostream &os,
 SOT_CORE_EXPORT std::istream &operator>>(std::istream &os, VectorMultiBound &v);
 
 } /* namespace sot */
+
+template <>
+struct signal_io<sot::MultiBound> : signal_io_unimplemented<sot::MultiBound> {};
 } /* namespace dynamicgraph */
 
 #endif // #ifndef __SOT_MultiBound_H__

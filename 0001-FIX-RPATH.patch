@@ -1,4 +1,4 @@
-From 1a57ac254421ed925961e552f459ecdf480b80df Mon Sep 17 00:00:00 2001
+From e9c92aa76696701ceee92ea1d2a49e3228b6b52e Mon Sep 17 00:00:00 2001
 From: rascof <thomas.peyrucain@gmail.com>
 Date: Mon, 16 Nov 2020 10:24:01 +0100
 Subject: [PATCH] FIX RPATH
@@ -8,10 +8,10 @@ Subject: [PATCH] FIX RPATH
  1 file changed, 2 insertions(+)
 
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 6788b53..18bc61e 100644
+index 91e167c..02dc6fc 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -86,6 +86,7 @@ set(sequencer_deps sot)
+@@ -87,6 +87,7 @@ set(sequencer_deps sot)
  set(task-conti_deps task)
  set(task-pd_deps task)
  set(task-unilateral_deps task)
@@ -19,7 +19,7 @@ index 6788b53..18bc61e 100644
  
  FOREACH(plugin ${plugins})
    GET_FILENAME_COMPONENT(LIBRARY_NAME ${plugin} NAME)
-@@ -93,6 +94,7 @@ FOREACH(plugin ${plugins})
+@@ -94,6 +95,7 @@ FOREACH(plugin ${plugins})
  
    IF(SUFFIX_SO_VERSION)
      SET_TARGET_PROPERTIES(${LIBRARY_NAME} PROPERTIES SOVERSION ${PROJECT_VERSION})
@@ -28,5 +28,5 @@ index 6788b53..18bc61e 100644
  
    TARGET_LINK_LIBRARIES(${LIBRARY_NAME} PUBLIC ${PROJECT_NAME} ${${LIBRARY_NAME}_deps})
 -- 
-2.30.0
+2.17.1
 

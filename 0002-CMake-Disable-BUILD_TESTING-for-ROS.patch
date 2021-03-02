@@ -1,7 +1,7 @@
 From 11d3577739be1f949069a156feec8d81158f3c13 Mon Sep 17 00:00:00 2001
 From: Guilhem Saurel <guilhem.saurel@laas.fr>
 Date: Tue, 2 Mar 2021 15:05:12 +0100
-Subject: [PATCH 2/2] [CMake] Disable BUILD_TESTING for ROS
+Subject: [PATCH 2/3] [CMake] Disable BUILD_TESTING for ROS
 
 As this would add an extra dependency to example-robot-data
 ---

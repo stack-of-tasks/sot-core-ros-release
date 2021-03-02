@@ -1,4 +1,4 @@
-From cd936857a19c05d617e3fa4dacc5cf25f15dfa0a Mon Sep 17 00:00:00 2001
+From 38765dde4ed30a37881ac77cf0d6c9e7158bcf93 Mon Sep 17 00:00:00 2001
 From: Guilhem Saurel <guilhem.saurel@laas.fr>
 Date: Tue, 2 Mar 2021 14:50:40 +0100
 Subject: [PATCH 2/2] Revert "disable BUILD_TESTING"

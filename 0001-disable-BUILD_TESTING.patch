@@ -1,0 +1,25 @@
+From 08d1e5fbca3fa3a740eac384092c02f40821544d Mon Sep 17 00:00:00 2001
+From: Guilhem Saurel <guilhem.saurel@laas.fr>
+Date: Tue, 2 Mar 2021 13:02:56 +0100
+Subject: [PATCH] disable BUILD_TESTING
+
+As this would add a dependency on example-robot-data
+---
+ debian/rules.em | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/debian/rules.em b/debian/rules.em
+index 3342408..8f9ef68 100755
+--- a/debian/rules.em
++++ b/debian/rules.em
+@@ -30,6 +30,7 @@ override_dh_auto_configure:
+ 	# CMAKE_PREFIX_PATH, PKG_CONFIG_PATH, and PYTHONPATH.
+ 	if [ -f "@(InstallationPrefix)/setup.sh" ]; then . "@(InstallationPrefix)/setup.sh"; fi && \
+ 	dh_auto_configure -- \
++		-DBUILD_TESTING=OFF \
+ 		-DCMAKE_INSTALL_PREFIX="@(InstallationPrefix)" \
+ 		-DCMAKE_PREFIX_PATH="@(InstallationPrefix)"
+ 
+-- 
+2.30.1
+

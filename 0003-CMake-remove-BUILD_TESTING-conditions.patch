@@ -1,7 +1,7 @@
 From 3a0c8c2b71b2cc719e7319aefdf9670e79910486 Mon Sep 17 00:00:00 2001
 From: Guilhem Saurel <guilhem.saurel@laas.fr>
 Date: Tue, 2 Mar 2021 15:37:15 +0100
-Subject: [PATCH 6/6] [CMake] remove BUILD_TESTING conditions
+Subject: [PATCH 3/3] [CMake] remove BUILD_TESTING conditions
 
 As ROS manually sometimes set BUILD_TESTING
 ---

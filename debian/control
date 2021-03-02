@@ -1,0 +1,12 @@
+Source: ros-noetic-sot-core
+Section: misc
+Priority: optional
+Maintainer: Guilhem Saurel <guilhem.saurel@laas.fr>
+Build-Depends: debhelper (>= 9.0.0), cmake, doxygen, libboost-all-dev, ros-noetic-dynamic-graph, ros-noetic-dynamic-graph-python, ros-noetic-pinocchio
+Homepage: http://stack-of-tasks.github.io
+Standards-Version: 3.9.2
+
+Package: ros-noetic-sot-core
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libboost-all-dev, ros-noetic-catkin, ros-noetic-dynamic-graph, ros-noetic-dynamic-graph-python, ros-noetic-pinocchio
+Description: Hierarchical task solver plug-in for dynamic-graph

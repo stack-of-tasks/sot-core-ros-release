@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <package format="3">
   <name>sot-core</name>
-  <version>4.11.2</version>
+  <version>4.11.5</version>
   <description>
     Hierarchical task solver plug-in for dynamic-graph
   </description>
-  <maintainer email="ostasse@laas.fr">Olivier Stasse</maintainer>
+  <maintainer email="guilhem.saurel@laas.fr">Guilhem Saurel</maintainer>
 
   <license>BSD</license>
 

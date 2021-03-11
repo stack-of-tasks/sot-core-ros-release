@@ -90,7 +90,6 @@ set(sequencer_deps sot)
 set(task-conti_deps task)
 set(task-pd_deps task)
 set(task-unilateral_deps task)
-set(BUILD_WITH_INSTALL_RPATH TRUE)
 
 FOREACH(plugin ${plugins})
   GET_FILENAME_COMPONENT(LIBRARY_NAME ${plugin} NAME)
@@ -99,7 +98,6 @@ FOREACH(plugin ${plugins})
 
   IF(SUFFIX_SO_VERSION)
     SET_TARGET_PROPERTIES(${LIBRARY_NAME} PROPERTIES SOVERSION ${PROJECT_VERSION})
-    set_target_properties(${LIBRARY_NAME} PROPERTIES INSTALL_RPATH $ORIGIN)
   ENDIF(SUFFIX_SO_VERSION)
 
   TARGET_LINK_LIBRARIES(${LIBRARY_NAME} PUBLIC ${PROJECT_NAME} ${${LIBRARY_NAME}_deps})

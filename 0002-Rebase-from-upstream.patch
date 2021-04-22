@@ -1,4 +1,4 @@
-From cdbd8c53bf8ad29bbfe50175ffa94ab3f36442f5 Mon Sep 17 00:00:00 2001
+From 8437f2e9c9493819672e96b40d4d54c753c9be31 Mon Sep 17 00:00:00 2001
 From: Guilhem Saurel <guilhem.saurel@laas.fr>
 Date: Thu, 11 Mar 2021 02:54:59 +0100
 Subject: [PATCH 2/3] Rebase from 'upstream'
@@ -28,5 +28,5 @@ index a20ad68..98511a4 100644
  
    TARGET_LINK_LIBRARIES(${LIBRARY_NAME} PUBLIC ${PROJECT_NAME} ${${LIBRARY_NAME}_deps})
 -- 
-2.30.2
+2.31.1
 

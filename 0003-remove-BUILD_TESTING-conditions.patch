@@ -1,7 +1,7 @@
-From 1456b27095f6678fc1b20336b7f4881862d27274 Mon Sep 17 00:00:00 2001
+From 6fb293d07b5fe3a4abe0b026559ff6fa4e122571 Mon Sep 17 00:00:00 2001
 From: Guilhem Saurel <guilhem.saurel@laas.fr>
 Date: Thu, 11 Mar 2021 02:55:28 +0100
-Subject: [PATCH 3/3] [CMake] remove BUILD_TESTING conditions
+Subject: [PATCH 3/3] remove BUILD_TESTING conditions
 
 ---
  CMakeLists.txt | 7 -------
@@ -33,5 +33,5 @@ index 6f206eb..58d7769 100644
  
  IF(NOT INSTALL_PYTHON_INTERFACE_ONLY)
 -- 
-2.30.2
+2.31.1
 

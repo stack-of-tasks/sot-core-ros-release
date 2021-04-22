@@ -1,4 +1,4 @@
-From 3ba501d90cb8485f898fbe1a914d3b23e1441d76 Mon Sep 17 00:00:00 2001
+From 5dfe8bb3ec9f77cd20a2461ba443c6e14ebe99bc Mon Sep 17 00:00:00 2001
 From: Guilhem Saurel <guilhem.saurel@laas.fr>
 Date: Tue, 2 Mar 2021 14:50:40 +0100
 Subject: [PATCH 2/2] Revert "disable BUILD_TESTING"
@@ -26,5 +26,5 @@ index 8f9ef68..3342408 100755
  		-DCMAKE_PREFIX_PATH="@(InstallationPrefix)"
  
 -- 
-2.30.2
+2.31.1
 

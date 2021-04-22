@@ -38,6 +38,10 @@ CHECK_MINIMAL_CXX_STANDARD(11 ENFORCE)
 ADD_PROJECT_DEPENDENCY(dynamic-graph REQUIRED)
 ADD_PROJECT_DEPENDENCY(pinocchio REQUIRED)
 ADD_PROJECT_DEPENDENCY(Boost REQUIRED COMPONENTS regex)
+IF(BUILD_TESTING)
+  ADD_PROJECT_DEPENDENCY(example-robot-data)
+  FIND_PACKAGE(Boost REQUIRED COMPONENTS unit_test_framework program_options)
+ENDIF()
 
 IF(Boost_VERSION GREATER 107299 OR Boost_VERSION_MACRO GREATER 107299)
   # Silence a warning about a deprecated use of boost bind by boost >= 1.73
@@ -161,14 +165,14 @@ SET(${PROJECT_NAME}_SOURCES
   src/sot/flags.cpp
   src/sot/memory-task-sot.cpp
   src/factory/pool.cpp
-  src/tools/utils-windows
-  src/tools/periodic-call
-  src/tools/device
-  src/tools/trajectory
-  src/tools/robot-utils
-  src/matrix/matrix-svd
-  src/filters/causal-filter
-  src/utils/stop-watch
+  src/tools/utils-windows.cpp
+  src/tools/periodic-call.cpp
+  src/tools/device.cpp
+  src/tools/trajectory.cpp
+  src/tools/robot-utils.cpp
+  src/matrix/matrix-svd.cpp
+  src/filters/causal-filter.cpp
+  src/utils/stop-watch.cpp
   )
 
 ADD_LIBRARY(${PROJECT_NAME} SHARED
@@ -186,6 +190,9 @@ IF(NOT INSTALL_PYTHON_INTERFACE_ONLY)
 ENDIF(NOT INSTALL_PYTHON_INTERFACE_ONLY)
 
 ADD_SUBDIRECTORY(src)
+IF(BUILD_TESTING)
+  ADD_SUBDIRECTORY(tests)
+ENDIF(BUILD_TESTING)
 ADD_SUBDIRECTORY(doc)
 
 IF(NOT INSTALL_PYTHON_INTERFACE_ONLY)

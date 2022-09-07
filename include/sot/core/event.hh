@@ -18,34 +18,61 @@
 namespace dynamicgraph {
 namespace sot {
 /// Event
+///
+/// This entity detects changes in value of an input boolean signal
+///
+/// Input signal is
+///   - condition (boolean),
+/// Output signal is
+///   - check
+/// output value is true if value of input signal changes with respect to the
+/// evaluation.
+///
+/// Method addSignal stores signals that are recomputed each time the output
+/// signal is recomputed and the value is true. One typical use case of this
+/// feature consists in plugging the output signal to a ROS topic using
+/// dynamicgraph::RosPublish entity (see dynamic_graph_bridge) and to call
+/// addSignal with the trigger signal of the RosPublish entity as the input.
+/// Thus each time the output signal changes value, the new value is published
+/// to the ROS topic.
+///
+/// If command setOnlyUp is called with true as input, signals are recomputed
+/// only if the output value switches from false to true.
+
 class SOT_CORE_DLLAPI Event : public dynamicgraph::Entity {
   DYNAMIC_GRAPH_ENTITY_DECL();
 
   Event(const std::string &name)
-      : Entity(name), checkSOUT("Event(" + name + ")::output(bool)::check"),
+      : Entity(name),
+        checkSOUT("Event(" + name + ")::output(bool)::check"),
         conditionSIN(NULL, "Event(" + name + ")::input(bool)::condition"),
-        lastVal_(2) // lastVal_ should be different true and false.
-  {
+        lastVal_(2),  // lastVal_ should be different true and false.
+        timeSinceUp_(0),
+        repeatAfterNIterations_(0) {
     checkSOUT.setFunction(boost::bind(&Event::check, this, _1, _2));
     signalRegistration(conditionSIN);
     signalRegistration(checkSOUT);
 
     using command::makeCommandVoid1;
-    std::string docstring = "\n"
-                            "    Add a signal\n";
+    std::string docstring =
+        "\n"
+        "    Add a signal\n";
     addCommand("addSignal",
                makeCommandVoid1(*this, &Event::addSignal, docstring));
 
-    docstring = "\n"
-                "    Get list of signals\n";
+    docstring =
+        "\n"
+        "    Get list of signals\n";
     addCommand("list", new command::Getter<Event, std::string>(
                            *this, &Event::getSignalsByName, docstring));
 
     docstring =
         "\n"
-        "    Triggers an event only when condition goes from False to True\n";
-    addCommand("setOnlyUp", new command::Setter<Event, bool>(
-                                *this, &Event::setOnlyUp, docstring));
+        "    Repease event if input signal remains True for a while\n"
+        "      Input: number of iterations before repeating output\n."
+        "        0 for no repetition";
+    addCommand("repeat", new command::Setter<Event, int>(*this, &Event::repeat,
+                                                         docstring));
   }
 
   ~Event() {}
@@ -73,9 +100,11 @@ class SOT_CORE_DLLAPI Event : public dynamicgraph::Entity {
     return oss.str();
   }
 
-  void setOnlyUp(const bool &up) { onlyUp_ = up; }
+  void repeat(const int &nbIterations) {
+    repeatAfterNIterations_ = nbIterations;
+  }
 
-private:
+ private:
   typedef SignalBase<int> *Trigger_t;
   typedef std::vector<Trigger_t> Triggers_t;
 
@@ -86,8 +115,9 @@ private:
   Triggers_t triggers;
   SignalPtr<bool, int> conditionSIN;
 
-  bool lastVal_, onlyUp_;
+  bool lastVal_;
+  int timeSinceUp_, repeatAfterNIterations_;
 };
-} // namespace sot
-} // namespace dynamicgraph
-#endif // __SOT_EVENT_H__
+}  // namespace sot
+}  // namespace dynamicgraph
+#endif  // __SOT_EVENT_H__

@@ -46,30 +46,30 @@ namespace sot {
   \brief Class that defines point-6d control feature.
   \deprecated This class was replaced by FeaturePose.
 */
-class SOTFEATUREPOINT6D_EXPORT FeaturePoint6d
+class [[deprecated(
+    "replaced by FeaturePose")]] SOTFEATUREPOINT6D_EXPORT FeaturePoint6d
     : public FeatureAbstract,
       public FeatureReferenceHelper<FeaturePoint6d> {
-
-public:
+ public:
   static const std::string CLASS_NAME;
   virtual const std::string &getClassName(void) const { return CLASS_NAME; }
 
   /* --- Frame type --------------------------------------------------------- */
-protected:
+ protected:
   enum ComputationFrameType { FRAME_DESIRED, FRAME_CURRENT };
   static const ComputationFrameType COMPUTATION_FRAME_DEFAULT;
 
-public:
+ public:
   /// \brief Set computation frame
   void computationFrame(const std::string &inFrame);
   /// \brief Get computation frame
   std::string computationFrame() const;
 
-private:
+ private:
   ComputationFrameType computationFrame_;
 
   /* --- SIGNALS ------------------------------------------------------------ */
-public:
+ public:
   dynamicgraph::SignalPtr<MatrixHomogeneous, int> positionSIN;
   dynamicgraph::SignalPtr<dynamicgraph::Vector, int> velocitySIN;
   dynamicgraph::SignalPtr<dynamicgraph::Matrix, int> articularJacobianSIN;
@@ -83,17 +83,17 @@ public:
   DECLARE_REFERENCE_FUNCTIONS(FeaturePoint6d);
   /*! @} */
 
-public:
+ public:
   FeaturePoint6d(const std::string &name);
   virtual ~FeaturePoint6d(void) {}
 
   virtual unsigned int &getDimension(unsigned int &dim, int time);
 
-  virtual dynamicgraph::Vector &computeError(dynamicgraph::Vector &res,
+  virtual dynamicgraph::Vector &computeError(dynamicgraph::Vector & res,
                                              int time);
-  virtual dynamicgraph::Vector &computeErrordot(dynamicgraph::Vector &res,
+  virtual dynamicgraph::Vector &computeErrordot(dynamicgraph::Vector & res,
                                                 int time);
-  virtual dynamicgraph::Matrix &computeJacobian(dynamicgraph::Matrix &res,
+  virtual dynamicgraph::Matrix &computeJacobian(dynamicgraph::Matrix & res,
                                                 int time);
 
   /** Static Feature selection. */
@@ -107,12 +107,12 @@ public:
   inline static Flags selectTranslation(void) { return Flags("111000"); }
   inline static Flags selectRotation(void) { return Flags("000111"); }
 
-  virtual void display(std::ostream &os) const;
+  virtual void display(std::ostream & os) const;
 
-public:
+ public:
   void servoCurrentPosition(void);
 
-private:
+ private:
   // Intermediate variables for internal computations
   Eigen::Vector3d v_, omega_, errordot_t_, errordot_th_, Rreftomega_, t_, tref_;
   VectorUTheta error_th_;
@@ -125,7 +125,7 @@ private:
 } /* namespace sot */
 } /* namespace dynamicgraph */
 
-#endif // #ifndef __SOT_FEATURE_POINT6D_HH__
+#endif  // #ifndef __SOT_FEATURE_POINT6D_HH__
 
 /*
  * Local variables:

@@ -47,18 +47,17 @@ namespace sot {
   point.
   \deprecated This class was replaced by FeaturePose.
 */
-class SOTFEATUREPOINT6DRELATIVE_EXPORT FeaturePoint6dRelative
-    : public FeaturePoint6d {
-
-public:
+class [[deprecated("replaced by FeaturePose")]] SOTFEATUREPOINT6DRELATIVE_EXPORT
+    FeaturePoint6dRelative : public FeaturePoint6d {
+ public:
   static const std::string CLASS_NAME;
   virtual const std::string &getClassName(void) const { return CLASS_NAME; }
 
-protected:
+ protected:
   dynamicgraph::Matrix L;
 
   /* --- SIGNALS ------------------------------------------------------------ */
-public:
+ public:
   dynamicgraph::SignalPtr<MatrixHomogeneous, int> positionReferenceSIN;
   dynamicgraph::SignalPtr<dynamicgraph::Matrix, int>
       articularJacobianReferenceSIN;
@@ -77,18 +76,18 @@ public:
 
   using FeaturePoint6d::getReference;
 
-public:
+ public:
   FeaturePoint6dRelative(const std::string &name);
   virtual ~FeaturePoint6dRelative(void) {}
 
-  virtual dynamicgraph::Vector &computeError(dynamicgraph::Vector &res,
+  virtual dynamicgraph::Vector &computeError(dynamicgraph::Vector & res,
                                              int time);
-  virtual dynamicgraph::Vector &computeErrorDot(dynamicgraph::Vector &res,
+  virtual dynamicgraph::Vector &computeErrorDot(dynamicgraph::Vector & res,
                                                 int time);
-  virtual dynamicgraph::Matrix &computeJacobian(dynamicgraph::Matrix &res,
+  virtual dynamicgraph::Matrix &computeJacobian(dynamicgraph::Matrix & res,
                                                 int time);
 
-  virtual void display(std::ostream &os) const;
+  virtual void display(std::ostream & os) const;
 
   void initCommands(void);
   void initSdes(const std::string &featureDesiredName);
@@ -97,7 +96,7 @@ public:
 } /* namespace sot */
 } /* namespace dynamicgraph */
 
-#endif // #ifndef __SOT_FEATURE_POINT6DRELATIVE_HH__
+#endif  // #ifndef __SOT_FEATURE_POINT6DRELATIVE_HH__
 
 /*
  * Local variables:

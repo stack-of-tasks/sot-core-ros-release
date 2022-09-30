@@ -1,0 +1,24 @@
+From 9955090623eebcb4c0c906e65114234647192080 Mon Sep 17 00:00:00 2001
+From: Guilhem Saurel <guilhem.saurel@laas.fr>
+Date: Fri, 30 Sep 2022 17:07:40 +0200
+Subject: [PATCH 2/2] CMake: force python 3 for noetic
+
+---
+ CMakeLists.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 60e47d5..5b3dbfc 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -27,6 +27,7 @@ include(cmake/sphinx.cmake)
+ compute_project_args(PROJECT_ARGS LANGUAGES CXX)
+ project(${PROJECT_NAME} ${PROJECT_ARGS})
+ check_minimal_cxx_standard(14 ENFORCE)
++set(PYTHON_EXECUTABLE "/usr/bin/python3")
+ 
+ # Project dependencies
+ add_project_dependency(dynamic-graph-python 4.0.6 REQUIRED)
+-- 
+2.25.1
+

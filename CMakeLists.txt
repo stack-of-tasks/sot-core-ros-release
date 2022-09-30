@@ -27,6 +27,7 @@ include(cmake/sphinx.cmake)
 compute_project_args(PROJECT_ARGS LANGUAGES CXX)
 project(${PROJECT_NAME} ${PROJECT_ARGS})
 check_minimal_cxx_standard(14 ENFORCE)
+set(PYTHON_EXECUTABLE "/usr/bin/python3")
 
 # Project dependencies
 add_project_dependency(dynamic-graph-python 4.0.6 REQUIRED)

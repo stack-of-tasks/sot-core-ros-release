@@ -1,3 +1,26 @@
+## sot-core (noetic) - 4.11.8-2
+
+The packages in the `sot-core` repository were released into the `noetic` distro by running `/usr/bin/bloom-release sot-core --rosdistro noetic` on `Fri, 30 Sep 2022 15:09:06 -0000`
+
+The `sot-core` package was released.
+
+Version of package(s) in repository `sot-core`:
+
+- upstream repository: https://github.com/stack-of-tasks/sot-core.git
+- release repository: https://github.com/stack-of-tasks/sot-core-ros-release.git
+- rosdistro version: `4.11.8-1`
+- old version: `4.11.8-1`
+- new version: `4.11.8-2`
+
+Versions of tools used:
+
+- bloom version: `0.11.2`
+- catkin_pkg version: `0.5.2`
+- rosdep version: `0.22.1`
+- rosdistro version: `0.9.0`
+- vcstools version: `0.1.42`
+
+
 ## sot-core (noetic) - 4.11.8-1
 
 The packages in the `sot-core` repository were released into the `noetic` distro by running `/usr/bin/bloom-release sot-core --rosdistro noetic` on `Wed, 07 Sep 2022 13:18:11 -0000`

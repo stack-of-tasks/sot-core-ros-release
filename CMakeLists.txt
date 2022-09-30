@@ -27,12 +27,15 @@ include(cmake/sphinx.cmake)
 compute_project_args(PROJECT_ARGS LANGUAGES CXX)
 project(${PROJECT_NAME} ${PROJECT_ARGS})
 check_minimal_cxx_standard(14 ENFORCE)
-set(PYTHON_EXECUTABLE "/usr/bin/python3")
 
 # Project dependencies
 add_project_dependency(dynamic-graph-python 4.0.6 REQUIRED)
 add_project_dependency(pinocchio REQUIRED)
 add_project_dependency(Boost REQUIRED COMPONENTS regex program_options)
+if(BUILD_TESTING)
+  add_project_dependency(example-robot-data 3.8.0)
+  find_package(Boost REQUIRED COMPONENTS unit_test_framework)
+endif()
 
 if(Boost_VERSION GREATER 107299 OR Boost_VERSION_MACRO GREATER 107299)
   # Silence a warning about a deprecated use of boost bind by boost >= 1.73
@@ -180,6 +183,9 @@ install(
   DESTINATION lib)
 
 add_subdirectory(src)
+if(BUILD_TESTING)
+  add_subdirectory(tests)
+endif(BUILD_TESTING)
 add_subdirectory(doc)
 
 install(FILES package.xml DESTINATION share/${PROJECT_NAME})
